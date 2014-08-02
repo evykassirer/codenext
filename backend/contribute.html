@@ -6,13 +6,15 @@
 		</title>
 	</head>
 	<body>
-		<form method="GET" action="add.php">
+		<form method="POST" action="add.php">
 			URL: <input type="text" name="url" /><br />
 			Name: <input type="text" name="name" /><br />
 			Prerequisites: <input type="text" name="prereqs" /><br />
 			You'll learn: <input type="text" name="subjects" /><br />
 			Usefulness: <input type="number" name="usefulness" min="0" max="10" value="5" />/10<br />
 			Easiness: <input type="number" name="easiness" min="0" max="10" value="5" />/10<br />
+			<textarea name="comments" cols="45" rows="5">Enter your comments on this resource here.</textarea><br />
+			<input type="Submit" value="Recommend this course!" />
 		</form>
 	</body>
 </html>
