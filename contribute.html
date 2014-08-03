@@ -7,9 +7,34 @@
 		</title>
         <script type="text/javascript" src="autocomplete.js"></script>
         <script type="text/javascript">
+            var xmlhttp = new XMLHttpRequest();
+
             window.onload = function() {
                 Autocomplete.addInput(document.getElementById("prereqs"), true);
                 Autocomplete.addInput(document.getElementById("subjects"), false);
+                /*document.getElementById("name").addEventListener("click", function() {
+                    var url = document.getElementById("url").value;
+                    xmlhttp.open("POST", url, true);
+                    xmlhttp.send();
+                });*/
+                // possible fix: http://www.html5rocks.com/en/tutorials/cors/
+            };
+
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4) {
+                    if(xmlhttp.status == 200 && xmlhttp.responseText.trim().length>0){
+                        // MY CODE HERE
+                        var html = xmlhttp.responseText;
+                        console.log(html);
+                        var locationStart = str.indexOf('<title>');
+                        var locationEnd = str.indexOf('</title>');
+                        var title =string.substring(locationStart , locationEnd); 
+                        console.log(title);
+                        document.getElementById("name").value = title;
+                    } else {
+                        console.log("server error?");
+                    }
+                }
             };
         </script>
 	</head>
@@ -24,8 +49,8 @@
             <div class="wrapper">
                 <h2>Contribute a resource</h2>
                 <form method="POST" action="add.php" autocomplete="off">
-                    <div class="line"><label>URL:</label><input type="text" name="url" /></div>
-                    <div class="line"><label>Name:</label><input type="text" name="name" placeholder="e.g. Web Development 101" /></div>
+                    <div class="line"><label>URL:</label><input type="text" name="url" id="url" /></div>
+                    <div class="line"><label>Name:</label><input type="text" name="name" id="name" placeholder="e.g. Web Development 101" /></div>
                     <div class="line"><label>Prerequisites:</label><input type="text" name="prereqs" id="prereqs" placeholder="e.g. HTML, Python"/></div>
                     <div class="line"><label>Concepts learned:</label><input type="text" name="subjects" id="subjects" placeholder="e.g. Web Development, SQL, CSS"/></div>
                     <div class="line slider"><label>Useless</label><input type="range" name="usefulness" min="0" max="10" value="5" step="0.5" /><label>Useful</label></div>
