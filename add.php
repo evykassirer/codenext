@@ -114,31 +114,53 @@
 	// Update supported subject tags.
 	$tags = explode(",", $subjects);
 	foreach ($tags as $tag) {
-    	$STH=$DBH->prepare("SELECT 1 FROM tags WHERE name = :name");
+		if($tag == "") 
+			continue;
+    	$STH=$DBH->prepare("SELECT * FROM tags WHERE name = :name");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":name" => $tag));
 		$result = $STH->fetchAll();
 		// Add the tag if it isn't in the database yet.
 		if (count($result) == 0) {
-			$STH=$DBH->prepare("INSERT INTO tags VALUES ('', :name)");
+			$STH=$DBH->prepare("INSERT INTO tags VALUES ('', :name, :occurances)");
 			$STH->setFetchMode(PDO::FETCH_ASSOC);
-			$STH->execute(array(":name" => $tag));			
-		}
+			$STH->execute(array(":name" => $tag, ":occurances" => 1));			
+		} else {
+			// If it already exists, increase the number of occurances.
+			$tag_id = $result[0]["id"];
+			$new_occurances = $result[0]["occurances"] + 1;
+			$STH=$DBH->prepare("UPDATE tags SET occurances=:new_occurances WHERE id=:id");
+			$STH->setFetchMode(PDO::FETCH_ASSOC);
+			$STH->execute(array(":new_occurances" => $new_occurances, ":id" => $tag_id));
+		} 
 	}
 
 	// Update prerequisite tags in the same way.
 	$tags = explode(",", $prereqs);
 	foreach ($tags as $tag) {
-    	$STH=$DBH->prepare("SELECT 1 FROM prereqs WHERE name = :name");
+		if($tag == "") 
+			continue;
+    	$STH=$DBH->prepare("SELECT * FROM prereqs WHERE name = :name");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":name" => $tag));
 		$result = $STH->fetchAll();
 		// Add the tag if it isn't in the database yet.
 		if (count($result) == 0) {
-			$STH=$DBH->prepare("INSERT INTO prereqs VALUES ('', :name)");
+			$STH=$DBH->prepare("INSERT INTO prereqs VALUES ('', :name, :occurances)");
 			$STH->setFetchMode(PDO::FETCH_ASSOC);
-			$STH->execute(array(":name" => $tag));			
-		}
+			$STH->execute(array(":name" => $tag, ":occurances" => 1));			
+		} else {
+			// If it already exists, and isn't listed in the current course, increase the number of occurances.
+	    	/*$STH=$DBH->prepare("SELECT * FROM courses WHERE name = :name");
+			$STH->setFetchMode(PDO::FETCH_ASSOC);
+			$STH->execute(array(":name" => $tag));
+*/
+			$tag_id = $result[0]["id"];
+			$new_occurances = $result[0]["occurances"] + 1;
+			$STH=$DBH->prepare("UPDATE prereqs SET occurances=:new_occurances WHERE id=:id");
+			$STH->setFetchMode(PDO::FETCH_ASSOC);
+			$STH->execute(array(":new_occurances" => $new_occurances, ":id" => $tag_id));
+		} 
 	}
 
 
