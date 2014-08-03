@@ -7,6 +7,11 @@
         <script type="text/javascript">
             window.onload = function() {
                 Filter.setInput(document.getElementById("search"), document.getElementById("tags"), true);
+                Filter.setInput(document.getElementById("knowledge"), document.getElementById("prereqs"), false);
+                
+                document.getElementById("find").addEventListener("click", function() {
+                    //var 
+                });
             };
         </script>
     </head>
@@ -37,7 +42,7 @@ $result = $STH->fetchAll();
 for ($i=0; $i<count($result); $i++) {
     echo "<div class='tag' id='" . $result[$i]["name"] . "'>";
     echo "<input type='checkbox' name='" . $result[$i]["name"] . "' id='" . $result[$i]["name"] . "box" . "' />";
-    echo "<label for='" . $result[$i]["name"]  . "box" . "' class='title'>" . $result[$i]["name"] . "</label>";
+    echo "<label for='" . $result[$i]["name"]  . "box" . "' class='title'>" . str_replace("_", " ", $result[$i]["name"]) . "</label>";
     echo "</div>";
 }
 
@@ -62,31 +67,38 @@ $result = $STH->fetchAll();
 for ($i=0; $i<count($result); $i++) {
     echo "<div class='tag prereq' id='" . $result[$i]["name"] . "'>";
     
+    echo "<input type='checkbox' name='" . $result[$i]["name"] . "' id='" . $result[$i]["name"] . "box2" . "' />";
+    echo "<label for='" . $result[$i]["name"]  . "box2" . "' class='title'>" . str_replace("_", " ", $result[$i]["name"]) . "</label>";
+    
     echo "<div class='experience'>";
     
     echo "<div class='experienceRow'>";
-    echo "<input type='radio' name='experience' value='expert' id='" . $result[$i]["name"]  . "expert" . "' />";
+    echo "<input type='radio' name='experience" . $result[$i]["name"] . "' value='expert' id='" . $result[$i]["name"]  . "expert" . "' />";
     echo "<label for='" . $result[$i]["name"]  . "expert" . "'>Expert</label>";
     echo "</div>";
     
     echo "<div class='experienceRow'>";
-    echo "<input type='radio' name='experience' value='intermediate' id='" . $result[$i]["name"]  . "intermediate" . "' />";
-    echo "<label for='" . $result[$i]["name"]  . "expert" . "'>Intermediate</label>";
+    echo "<input type='radio' checked name='experience" . $result[$i]["name"] . "' value='intermediate' id='" . $result[$i]["name"]  . "intermediate" . "' />";
+    echo "<label for='" . $result[$i]["name"]  . "intermediate" . "'>Intermediate</label>";
     echo "</div>";
     
     echo "<div class='experienceRow'>";
-    echo "<input type='radio' name='experience' value='beginner' id='" . $result[$i]["name"]  . "beginner" . "' />";
+    echo "<input type='radio' name='experience" . $result[$i]["name"] . "' value='beginner' id='" . $result[$i]["name"]  . "beginner" . "' />";
     echo "<label for='" . $result[$i]["name"]  . "beginner" . "'>Beginner</label>";
     echo "</div>";
     
     echo "</div>";
     
-    echo "<input type='checkbox' name='" . $result[$i]["name"] . "' id='" . $result[$i]["name"] . "box" . "' />";
-    echo "<label for='" . $result[$i]["name"]  . "box" . "' class='title'>" . $result[$i]["name"] . "</label>";
     echo "</div>";
 }
 
                     ?>
+                </div>
+            </div>
+            
+            <div class="wrapper">
+                <div class="row">
+                    <a>Find a course</a>
                 </div>
             </div>
         </div>

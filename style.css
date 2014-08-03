@@ -82,6 +82,7 @@ h3 {
     text-decoration:none;
     transition: all 0.2s;
     width:300px;
+    cursor:pointer;
 }
 
 .row a#contribute {
@@ -203,6 +204,8 @@ input[type="range"] {
 .tag {
     display:inline-block;
     margin:20px;
+    height:100px;
+    overflow-y:hidden;
     padding:0;
     background-color:#FFF;
 }
@@ -219,12 +222,14 @@ label.title {
     display:block;
     width:auto;
     height:60px;
-    padding:20px 40px;
+    padding:20px 40px 120px 40px;
     line-height:60px;
     font-size:16px;
     color:#000;
     background-color:#f9bdbb;
     transition: all 0.2s;
+    cursor:pointer;
+    margin-bottom:-100px;
 }
 
 label.title:hover {
@@ -235,4 +240,28 @@ label.title:hover {
 .tag input[type="checkbox"]:checked + label {
     background-color:#e51c23;
     color:#FFF;
+}
+
+.tag .experience {
+    height:60px;
+    line-height:20px;
+    padding:20px 20px;
+    background-color:#607d8b;
+    color:#FFF;
+    text-align:right;
+    font-size:12px;
+    float:right;
+}
+
+.tag:hover input[type="checkbox"]:checked + label {
+    margin-top:-100px;
+}
+
+.tag input[type="radio"]:checked + label {
+    color:#ffc107;
+    text-decoration:underline;
+}
+
+.experience label:hover {
+    text-decoration:underline;
 }
