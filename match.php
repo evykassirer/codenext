@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <title>CodeNext - Figure out what to learn</title>
+        <script type="text/javascript" src="match.js"></script>
     </head>
 	<body>
         <div id="learn">
@@ -144,76 +145,95 @@
 	usort($courses, "cmp");
 
 	// SELECT RESULT:
-	$winner = $courses[0];
-	if($winner["score"] == 0)
-		echo "<div class='message'><h2>Sorry, no courses found that match your goals and skills.</h2><h3>Try another combination or come back later and try again!</h3></div>";
+	if($courses[0] == 0)
+		echo "<div class='feature' id='last'>
+        <h3>Sorry, no courses found that match your goals and skills.</h3>
+        <p>Try another combination or come back later and try again!</p>
+        <div class='row'>
+                    <a href='index.html'>
+                        <span class='type'>Return</span>
+                    </a>
+                </div></div>";
 	else {
-		echo "<div class='feature'>";
-        echo "<h2><a href='" . $winner["url"] . "' target='_blank'>" . $winner["name"] . "</a></h2>";
-        echo "<div class='half'>";
-        echo "<div class='wrapper'>";
-		echo "<h3>Prerequisites</h3>";
-        echo "<ul>";
-        $prereqs = explode(",", $winner["prereqs"]);
-        $visible=0;
-        if (count($prereqs)>0) {
-            foreach ($prereqs as $prereq) {
-                if (strlen(trim($prereq))>0) {
-                    $visible++;
-                    echo "<li>" . str_replace("_", " ", $prereq) . "</li>";
+        $result=0;
+        foreach ($courses as $winner) {
+            $result++;
+            echo "<div class='feature" . ($result>1?" hidden":"") . "'>";
+            echo "<h2><a href='" . $winner["url"] . "' target='_blank'>" . $winner["name"] . "</a></h2>";
+            echo "<div class='half'>";
+            echo "<div class='wrapper'>";
+            echo "<h3>Prerequisites</h3>";
+            echo "<ul>";
+            $prereqs = explode(",", $winner["prereqs"]);
+            $visible=0;
+            if (count($prereqs)>0) {
+                foreach ($prereqs as $prereq) {
+                    if (strlen(trim($prereq))>0) {
+                        $visible++;
+                        echo "<li>" . str_replace("_", " ", $prereq) . "</li>";
+                    }
                 }
             }
-        }
-        if ($visible==0) {
-            echo "<li>None</li>";
-        }
-        echo "</ul>";
-        echo "<h3>What you'll learn</h3>";
-        echo "<ul>";
-        $subjects = explode(",", $winner["subjects"]);
-        $visible=0;
-        if (count($subjects)>0) {
-            foreach ($subjects as $subject) {
-                if (strlen(trim($subject))>0) {
-                    $visible++;
-                    echo "<li>" . str_replace("_", " ", $subject) . "</li>";
+            if ($visible==0) {
+                echo "<li>None</li>";
+            }
+            echo "</ul>";
+            echo "<h3>What you'll learn</h3>";
+            echo "<ul>";
+            $subjects = explode(",", $winner["subjects"]);
+            $visible=0;
+            if (count($subjects)>0) {
+                foreach ($subjects as $subject) {
+                    if (strlen(trim($subject))>0) {
+                        $visible++;
+                        echo "<li>" . str_replace("_", " ", $subject) . "</li>";
+                    }
                 }
             }
-        }
-        if ($visible==0) {
-            echo "<li>None</li>";
-        }
-        echo "</ul>";
-        echo "</div>";
-        echo "</div>";
-        echo "<div class='half'>";
-        echo "<div class='wrapper'>";
-		echo "<h3>User comments</h3>";
-		$STH=$DBH->prepare("SELECT * FROM reviews WHERE course = :id");
-		$STH->setFetchMode(PDO::FETCH_ASSOC);
-		$STH->execute(array(":id" => $winner["id"]));
-		$result = $STH->fetchAll();
-        $visible=0;
-        if (count($result)>0) {
-            foreach ($result as $review) {
-                if (strlen(trim($review["comments"]))>0) {
-                    $visible++;
-                    echo "<div class='comment'>";
-                    echo $review["comments"];
-                    echo "<div class='triangle'></div></div>";
+            if ($visible==0) {
+                echo "<li>None</li>";
+            }
+            echo "</ul>";
+            echo "</div>";
+            echo "</div>";
+            echo "<div class='half'>";
+            echo "<div class='wrapper'>";
+            echo "<h3>User comments</h3>";
+            $STH=$DBH->prepare("SELECT * FROM reviews WHERE course = :id");
+            $STH->setFetchMode(PDO::FETCH_ASSOC);
+            $STH->execute(array(":id" => $winner["id"]));
+            $result = $STH->fetchAll();
+            $visible=0;
+            if (count($result)>0) {
+                foreach ($result as $review) {
+                    if (strlen(trim($review["comments"]))>0) {
+                        $visible++;
+                        echo "<div class='comment'>";
+                        echo $review["comments"];
+                        echo "<div class='triangle'></div></div>";
+                    }
                 }
             }
+            if ($visible==0) {
+                echo "<p>There are no comments yet. You can be the first!</p>";
+            }
+            echo "</div>";
+            echo "</div>";
+            echo "<div class='row'>";
+            echo "<a href='" . $winner["url"] . "' target='_blank'>" . "Take this course</a>";
+            echo "<a class='secondary'>No thanks, show me another</a>";
+            echo "</div>";
+            echo "</div>";
         }
-        if ($visible==0) {
-            echo "<p>There are no comments yet. You can be the first!</p>";
-        }
-        echo "</div>";
-        echo "</div>";
-        echo "<div class='row'>";
-        echo "<a href='" . $winner["url"] . "' target='_blank'>" . "Take this course</a>";
-        echo "<a class='secondary'>No thanks, show me another</a>";
-        echo "</div>";
-        echo "</div>";
+        
+        echo "<div class='feature hidden' id='last'><h3>Sorry, no more courses found that match your goals and skills.</h3><p>Try another combination or come back later and try again!</p>
+        <div class='row'>
+                    <a href='index.html'>
+                        <span class='type'>Return</span>
+                    </a>
+                </div>
+                </div>";
+        
     }
 
 

@@ -304,7 +304,7 @@ label.title:hover {
 .feature {
     background-color:#FFF;
     padding:10px;
-    margin:20px auto;
+    margin:20px auto 40px auto;
     border-radius:8px;
     width:80%;
     max-height:2000px;
@@ -312,8 +312,10 @@ label.title:hover {
     transition:all 0.3s;
 }
 
-.feature.closed {
+.feature.hidden {
     max-height:0px;
+    padding:0 10px;
+    margin:0 auto;
 }
 
 .half {
@@ -398,4 +400,8 @@ label.title:hover {
 
 .feature .wrapper {
     padding:20px 20px 10px 20px;
+}
+
+#last h3, #last p {
+    text-align:center;
 }
