@@ -306,7 +306,14 @@ label.title:hover {
     padding:10px;
     margin:20px auto;
     border-radius:8px;
-    width:80%
+    width:80%;
+    max-height:2000px;
+    overflow:hidden;
+    transition:all 0.3s;
+}
+
+.feature.closed {
+    max-height:0px;
 }
 
 .half {
@@ -325,7 +332,9 @@ label.title:hover {
 
 .feature h2 {
     font-size:40px;
+    padding:0 20px;
     border-bottom: 1px solid #CCC;
+    margin:10px 20px 20px 20px;
 }
 
 .feature h2 a:hover {
@@ -334,11 +343,12 @@ label.title:hover {
 
 .feature h2, .feature h3 {
     color:#000;
-    margin:10px auto 20px auto;
 }
 
 .feature h3 {
     font-size:20px;
+    text-align:left;
+    margin:10px auto 20px auto;
 }
 
 .comment {
@@ -359,6 +369,13 @@ label.title:hover {
     position:absolute;
     bottom:-30px;
     right:20px;
+}
+
+.feature ul {
+    display:block;
+    margin:0;
+    padding:0;
+    list-style-type: none;
 }
 
 .feature li {
