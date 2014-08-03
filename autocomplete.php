@@ -6,9 +6,9 @@ $tag = $_POST["tag"] . "%";
 $prereqs = $_POST["prereqs"];
 
 if ($prereqs=="1") {
-    $STH=$DBH->prepare("SELECT name FROM prereqs WHERE LOWER(name) LIKE LOWER(:tag)");
+    $STH=$DBH->prepare("SELECT name FROM prereqs WHERE LOWER(name) LIKE LOWER(:tag) ORDER BY occurances DESC");
 } else {
-    $STH=$DBH->prepare("SELECT name FROM tags WHERE LOWER(name) LIKE LOWER(:tag)");
+    $STH=$DBH->prepare("SELECT name FROM tags WHERE LOWER(name) LIKE LOWER(:tag) ORDER BY occurances DESC");
 }
 
 $STH->setFetchMode(PDO::FETCH_ASSOC);

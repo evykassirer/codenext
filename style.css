@@ -144,7 +144,7 @@ form input[type="submit"]:hover {
     background-color:#f36c60;
 }
 
-input[type="text"], textarea {
+input[type="text"], select, textarea {
     display:inline-block;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -152,6 +152,11 @@ input[type="text"], textarea {
     padding:10px;
     background-color: #FFF;
     font-family: 'Open Sans', sans-serif;
+    transition: all 0.2s;
+}
+
+input[type="text"]:hover, select:hover, textarea:hover {
+    border: 1px solid #999;
 }
 
 .line {
@@ -161,6 +166,12 @@ input[type="text"], textarea {
 
 form input[type="text"] {
     width:350px;
+    float:right;
+}
+
+form select {
+    width:150px;
+    margin-right:200px;
     float:right;
 }
 
@@ -188,6 +199,7 @@ input[type="range"] {
     font-size:12px;
     line-height:16px;
     cursor:pointer;
+    transition: all 0.2s;
 }
 
 .slider {

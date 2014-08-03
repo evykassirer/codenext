@@ -12,24 +12,24 @@
             window.onload = function() {
                 Autocomplete.addInput(document.getElementById("prereqs"), true);
                 Autocomplete.addInput(document.getElementById("subjects"), false);
-                /*document.getElementById("name").addEventListener("click", function() {
-                    var url = document.getElementById("url").value;
+                var getTitle = function() {
+                    var url = "external_title.php/?url=" + encodeURIComponent(document.getElementById("url").value);
                     xmlhttp.open("POST", url, true);
                     xmlhttp.send();
-                });*/
+                };
+                var timer;
+                document.getElementById("url").addEventListener("keyup", function() {
+                    clearInterval(timer);
+                    timer = setTimeout(getTitle, 1000);
+                });
+                document.getElementById("name").addEventListener("click", getTitle);
                 // possible fix: http://www.html5rocks.com/en/tutorials/cors/
             };
 
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4) {
                     if(xmlhttp.status == 200 && xmlhttp.responseText.trim().length>0){
-                        // MY CODE HERE
-                        var html = xmlhttp.responseText;
-                        console.log(html);
-                        var locationStart = str.indexOf('<title>');
-                        var locationEnd = str.indexOf('</title>');
-                        var title =string.substring(locationStart , locationEnd); 
-                        console.log(title);
+                        var title=xmlhttp.responseText; 
                         document.getElementById("name").value = title;
                     } else {
                         console.log("server error?");

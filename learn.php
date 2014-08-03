@@ -152,7 +152,7 @@ for ($i=0; $i<count($result); $i++) {
                 <div class="results" id="prereqs">
                     <?php
 
-$STH=$DBH->prepare("SELECT name FROM prereqs");
+$STH=$DBH->prepare("SELECT name FROM prereqs ORDER BY occurances DESC");
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 $STH->execute();
 $result = $STH->fetchAll();
