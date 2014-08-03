@@ -124,6 +124,15 @@ for ($i=0; $i<count($result); $i++) {
 }
                     ?>
                 </div>
+                 <div class="row">
+                    <label>I want to learn this in:</label>
+                    <select name="length">
+                        <option value="hours">hours</option>
+                        <option value="days">days</option>
+                        <option value="weeks">weeks</option>
+                        <option value="months">months</option>
+                    </select>
+                </div>
                 <div class="row slider">
                     <label>Straightforward</label>
                     <input type="range" id="easiness" min="0" max="10" value="5" step="0.5" />
