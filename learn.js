@@ -25,14 +25,15 @@ var Filter = (function() {
         input.addEventListener("keyup", startFilter);
         
         for (var i=0; i<tags.length; i++) {
-            if (exclusive) {
-                tags[i].getElementsByTagName("label")[0].addEventListener("click", function(evt) {
-                    for (var j=0; j<tags.length; j++) {
+            tags[i].getElementsByTagName("label")[0].addEventListener("click", function(evt) {
+                if (exclusive || evt.target.parentElement.id=="Something_new" || evt.target.parentElement.id=="Nothing_yet") {
+                    for (var j=1; j<tags.length; j++) {
                         if (tags[j]==evt.target.parentElement) continue;
                         tags[j].getElementsByTagName("input")[0].checked=false;
                     }
-                });
-            }
+                }
+                if (evt.target.parentElement.id!="Something_new" && evt.target.parentElement.id!="Nothing_yet") tags[0].getElementsByTagName("input")[0].checked=false;
+            });
         }
     };
     
