@@ -147,6 +147,21 @@ input[type="range"] {
     width:180px;
 }
 
+.line {
+    position: relative;
+}
+
+.suggestion {
+    position:absolute;
+    padding:5px;
+    background-color:#FFF;
+    border: 1px solid #CCC;
+    top:40px;
+    z-index:9000;
+    font-size:12px;
+    line-height:16px;
+}
+
 .slider {
     text-align:center;
 }
