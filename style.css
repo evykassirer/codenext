@@ -232,7 +232,6 @@ label.title {
     color:#000;
     background-color:#f9bdbb;
     transition: all 0.2s;
-    cursor:pointer;
     margin-bottom:-100px;
 }
 
@@ -254,18 +253,26 @@ label.title:hover {
     color:#FFF;
     text-align:right;
     font-size:12px;
-    float:right;
 }
 
-.tag:hover input[type="checkbox"]:checked + label {
+.tag .experienceRow {
+    float:right;
+    clear:both;
+}
+
+.prereq:hover input[type="checkbox"]:checked + label {
     margin-top:-100px;
+}
+
+.experience label {
+    padding-right:0;
+    transition: all 0.2s;
 }
 
 .tag input[type="radio"]:checked + label {
     color:#ffc107;
-    text-decoration:underline;
 }
 
 .experience label:hover {
-    text-decoration:underline;
+    padding-right:5px;
 }

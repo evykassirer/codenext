@@ -9,6 +9,13 @@
                 Filter.setInput(document.getElementById("search"), document.getElementById("tags"), true);
                 Filter.setInput(document.getElementById("knowledge"), document.getElementById("prereqs"), false);
                 
+                var experiences = document.getElementsByClassName("experience");
+                for (var i=0; i<prereqs.length; i++) {
+                    experiences[i].addEventListener("click", function(evt) {
+                        evt.target.parentElement.getElementsByTagName("input")[0].checked=false;
+                    });
+                }
+                
                 document.getElementById("find").addEventListener("click", function() {
                     //var 
                 });
@@ -73,8 +80,8 @@ for ($i=0; $i<count($result); $i++) {
     echo "<div class='experience'>";
     
     echo "<div class='experienceRow'>";
-    echo "<input type='radio' name='experience" . $result[$i]["name"] . "' value='expert' id='" . $result[$i]["name"]  . "expert" . "' />";
-    echo "<label for='" . $result[$i]["name"]  . "expert" . "'>Expert</label>";
+    echo "<input type='radio' name='experience" . $result[$i]["name"] . "' value='beginner' id='" . $result[$i]["name"]  . "beginner" . "' />";
+    echo "<label for='" . $result[$i]["name"]  . "beginner" . "'>Beginner</label>";
     echo "</div>";
     
     echo "<div class='experienceRow'>";
@@ -83,8 +90,8 @@ for ($i=0; $i<count($result); $i++) {
     echo "</div>";
     
     echo "<div class='experienceRow'>";
-    echo "<input type='radio' name='experience" . $result[$i]["name"] . "' value='beginner' id='" . $result[$i]["name"]  . "beginner" . "' />";
-    echo "<label for='" . $result[$i]["name"]  . "beginner" . "'>Beginner</label>";
+    echo "<input type='radio' name='experience" . $result[$i]["name"] . "' value='advanced' id='" . $result[$i]["name"]  . "advanced" . "' />";
+    echo "<label for='" . $result[$i]["name"]  . "advanced" . "'>Advanced</label>";
     echo "</div>";
     
     echo "</div>";
@@ -98,7 +105,7 @@ for ($i=0; $i<count($result); $i++) {
             
             <div class="wrapper">
                 <div class="row">
-                    <a>Find a course</a>
+                    <a id="find">Find a course</a>
                 </div>
             </div>
         </div>
