@@ -174,6 +174,10 @@
             $winner["url"] = "http://" . $winner["url"];
             echo "<div class='feature" . ($result>1?" hidden":"") . "'>";
             echo "<h2><a href='" . $winner["url"] . "' target='_blank'>" . $winner["name"] . "</a></h2>";
+            echo "<div class='row'>";
+            echo "<a href='" . $winner["url"] . "' target='_blank'>" . "Take this course</a>";
+            echo "<a class='secondary'>No thanks, show me another</a>";
+            echo "</div>";
             echo "<div class='half'>";
             echo "<div class='wrapper'>";
             echo "<h3>Prerequisites</h3>";
@@ -240,15 +244,12 @@
                     <div class="line slider"><label>Useless</label><input type="range" name="usefulness" min="0" max="10" value="5" step="0.5" /><label>Useful</label></div>
                     <div class="line slider"><label>Straightforward</label><input type="range" name="easiness" min="0" max="10" value="5" step="0.5" /><label>Fun Challenge</label></div>
                     <textarea name="comments" cols="45" rows="5" placeholder="Enter your comments on this resource here."></textarea>
+                    <input type="hidden" name="course" value="<?php echo $winner["id"]; ?>" />
                     <input type="Submit" value="Add review" />
                 </form>
                 
                 <?php
             echo "</div>";
-            echo "</div>";
-            echo "<div class='row'>";
-            echo "<a href='" . $winner["url"] . "' target='_blank'>" . "Take this course</a>";
-            echo "<a class='secondary'>No thanks, show me another</a>";
             echo "</div>";
             echo "</div>";
         }
