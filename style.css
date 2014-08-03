@@ -313,6 +313,7 @@ label.title:hover {
     display:inline-block;
     width:49%;
     color:#000;
+    text-align:left;
     vertical-align:top;
 }
 

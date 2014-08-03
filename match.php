@@ -114,8 +114,6 @@
 			else if (in_array($adv_skills, $skill))
 				$prereq_score += 3;
 		}
-		echo count($prereqs);
-		echo " number of prereqs. ";
 		if(count($prereqs) > 0)
 			$prereq_score = ($prereq_score / (3 * count($prereqs))) * 50;
 		else 
@@ -153,15 +151,25 @@
         echo "<div class='wrapper'>";
 		echo "<h3>Prerequisites</h3>";
         echo "<ul>";
-        foreach (explode(",", $winner["prereqs"]) as $prereq) {
-			if (strlen(trim($prereq))>0) echo "<li>" . str_replace("_", " ", $prereq) . "</li>";
-		}
+        $prereqs = explode(",", $winner["prereqs"]);
+        if (count($prereqs)>0) {
+            foreach ($prereqs as $prereq) {
+                if (strlen(trim($prereq))>0) echo "<li>" . str_replace("_", " ", $prereq) . "</li>";
+            }
+        } else {
+            echo "<li>None</li>";
+        }
         echo "</ul>";
         echo "<h3>What you'll learn</h3>";
         echo "<ul>";
-        foreach (explode(",", $winner["subjects"]) as $subject) {
-			if (strlen(trim($subject))>0) echo "<li>" . str_replace("_", " ", $subject) . "</li>";
-		}
+        $subjects = explode(",", $winner["subjects"]);
+        if (count($subjects)>0) {
+            foreach ($subjects as $subject) {
+                if (strlen(trim($subject))>0) echo "<li>" . str_replace("_", " ", $subject) . "</li>";
+            }
+        } else {
+            echo "<li>None</li>";
+        }
         echo "</ul>";
         echo "</div>";
         echo "</div>";
