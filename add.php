@@ -1,17 +1,36 @@
 <?php
+	error_reporting(E_ALL);
 	require "login.php";
 	
-
-	// Get data from form
-	$name = trim(stripslashes($_POST['name']));
-
+	// Formats multi-word tags by changing spaces to underscores, and then
+	// puts the tags together in a string separated by underscores. All tags
+	// are entered in sentence case (start with capital letter, rest lowercase).
 	function FormatTagString($string) {
 		$tags = explode(", ", $string);
 		foreach ($tags as &$tag) {
 			$tag = preg_replace('/\s+/', '_', $tag);
+			$tag = ucwords(strtolower($tag));
 		}
 		return implode(",", $tags);
 	}
+
+    // Takes two strings of tags and returns a string containing all of the tabs
+    // combined (with no duplicates).
+	function CombineTags($first, $second) {
+		$first = explode(",", $first);
+		$second = explode(",", $second);
+		foreach ($second as $elem) {
+			if (!in_array($elem, $first)) {
+				array_push($first, $elem);
+			}
+		}
+		return implode(",", $first);
+	}
+
+	// echo "checkpoint";
+
+	// Get data from form
+	$name = trim(stripslashes($_POST['name']));
 	$prereqs = trim(stripslashes($_POST['prereqs']));
 	$prereqs = FormatTagString($prereqs);
 	$subjects = trim(stripslashes($_POST['subjects']));
@@ -37,32 +56,37 @@
 	$STH=$DBH->prepare("SELECT * FROM courses WHERE url = :url");
 	$STH->setFetchMode(PDO::FETCH_ASSOC);
 	$STH->execute(array(":url" => $url));
-	$course=$STH->fetchAll();
-	if (count($course) == 0) {
-		$overall = $usefulness + $easiness;
-		if ($easiness > 5)
-			$overall = $usefulness + 10 - $easiness; 
+	$new_course = False;
+	$check = $STH->fetchAll();
+	if (count($check) == 0) {
+		$new_course = True;
+	}
+
+	if ($new_course) {
+		echo "new course submitted";
 		$STH=$DBH->prepare("INSERT INTO courses VALUES ('', :name, :prereqs, :subjects, :url, :usefulness, :easiness, :overall)");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":name" => $name, ":prereqs" => $prereqs, ":subjects" => $prereqs, ":subjects" => $subjects, ":url" => $url, ":usefulness" => $usefulness, ":easiness" => $easiness, ":overall" => $overall));
 	}
-	
+
 	// We always add a new review. 
 	// TODO: one review per user.
 	$STH=$DBH->prepare("SELECT * FROM courses WHERE url = :url");
 	$STH->setFetchMode(PDO::FETCH_ASSOC);
 	$STH->execute(array(":url" => $url));
 	$result = $STH->fetchAll();
-	$course_id = $result[0]["id"];
+	$course = $result[0];
+	$course_id = $course["id"];
 	$STH=$DBH->prepare("INSERT INTO reviews VALUES ('', :user, :course, :usefulness, :easiness, :comments)");
 	$STH->setFetchMode(PDO::FETCH_ASSOC);
 	$STH->execute(array(":user" => $user, ":course" => $course_id, ":usefulness" => $usefulness, ":easiness" => $easiness, ":comments" => $comments));
 
 	// If we added a new review to an existing course, update the course data.
-	if (count($course) != 0) {
+	if (!$new_course) {
+		echo "submitted course updated";
 		$STH=$DBH->prepare("SELECT * FROM reviews WHERE course = :id");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
-		$STH->execute(array(":id" => $course_id));
+		$STH->execute(array(":id" => $course_id) );
 		$reviews=$STH->fetchAll();
 
 		$new_usefulness = 0;
@@ -76,9 +100,13 @@
 		$new_overall = $new_usefulness + $new_easiness;
 		if ($new_easiness > 5)
 			$new_overall = $new_usefulness + 10 - $new_easiness;
-		$STH=$DBH->prepare("UPDATE courses SET usefulness=:usefulness, easiness=:easiness, overall=:overall WHERE id=:id");
+
+		$new_prereqs = CombineTags($course["prereqs"], $prereqs);
+		$new_subjects = CombineTags($course["subjects"], $subjects);
+
+		$STH=$DBH->prepare("UPDATE courses SET prereqs=:prereqs, subjects=:subjects, usefulness=:usefulness, easiness=:easiness, overall=:overall WHERE id=:id");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
-		$STH->execute(array(":usefulness" => $new_usefulness, ":easiness" => $new_easiness, ":overall" => $new_overall, ":id" => $course_id));
+		$STH->execute(array(":prereqs" => $new_prereqs, ":subjects" => $new_subjects, ":usefulness" => $new_usefulness, ":easiness" => $new_easiness, ":overall" => $new_overall, ":id" => $course_id));
 	}
 
 
