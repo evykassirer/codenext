@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CodeNext</title>
+	</head>
+</html>
+
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="landingpage.css">
+		<title>CodeNext</title>
+	</head>
+
+	<body>
+		<h4>I want to learn:</h4>
+		<body>
+<!-- HTML for SEARCH BAR -->
+		<div id="tfheader">
+			<form id="tfnewsearch" method="get" action="http://www.google.com">
+			        <input type="text" class="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton">
+			</form>
+		<div class="tfclear"></div>
+			</div>
+
+	<h4>Languages</h4>		
+		<p>Python</p>
+		<p>Ruby (on Rails)</p>
+		<p>Java</p>
+		<p>HTML</p>
+		<P>CSS</P>
+		<p>C++</p>
+		<P>Django</P>
+
+
+
+	<h4>Projects</h4>
+		<p>Web Development</p>
+		<p>Android Apps</p>
+		<p>iPhone/iPad Apps</p>
+		<p>Make a Blog</p>
+		<p>Games</p>
+		</body>
+</html>
