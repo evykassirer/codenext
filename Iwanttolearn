@@ -30,8 +30,12 @@
 		<P>CSS</P>
 		<p>C++</p>
 		<P>Django</P>
-
-
+		<p>JavaScript</p>
+		<p>PHP</p>
+		<P>SQL</P>
+		<p>VBA</p>
+		<p>Swift/Objective-C</p>
+		<p>Node</p>
 
 	<h4>Projects</h4>
 		<p>Web Development</p>
@@ -39,5 +43,6 @@
 		<p>iPhone/iPad Apps</p>
 		<p>Make a Blog</p>
 		<p>Games</p>
+		
 		</body>
 </html>
