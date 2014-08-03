@@ -158,6 +158,7 @@
         $result=0;
         foreach ($courses as $winner) {
             $result++;
+            $winner["url"] = "http://" . $winner["url"];
             echo "<div class='feature" . ($result>1?" hidden":"") . "'>";
             echo "<h2><a href='" . $winner["url"] . "' target='_blank'>" . $winner["name"] . "</a></h2>";
             echo "<div class='half'>";
