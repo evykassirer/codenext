@@ -94,7 +94,7 @@ h3 {
     cursor:pointer;
 }
 
-.row a#contribute {
+.row a.secondary {
     color:#000;
     background-color:#CCC;
 }
@@ -299,4 +299,78 @@ label.title:hover {
 }
 #back:hover {
     background-color:#FFF;
+}
+
+.feature {
+    background-color:#FFF;
+    padding:10px;
+    margin:20px;
+    border-radius:8px;
+}
+
+.half {
+    display:inline-block;
+    width:49%;
+    color:#000;
+    vertical-align:top;
+}
+
+.feature h2 a {
+    color:#e51c23;
+    margin:10px auto;
+    text-decoration: none;
+}
+
+.feature h2 {
+    font-size:48px;
+}
+
+.feature h2 a:hover {
+    color:#e84e40;
+}
+
+.feature h2, .feature h3 {
+    color:#000;
+    margin:10px auto 20px auto;
+}
+
+.feature h3 {
+    font-size:30px;
+}
+
+.comment {
+    padding:20px;
+    border-radius:4px;
+    background-color:#EEE;
+    position:relative;
+    margin-bottom:60px;
+}
+
+.triangle {
+    margin-top:100px;
+    display:block;
+    width: 0;
+	height: 0;
+	border-top: 30px solid #EEE;
+	border-left: 30px solid transparent;
+    position:absolute;
+    bottom:-30px;
+    right:20px;
+}
+
+.feature li {
+    display:inline-block;
+    list-style-type: none;
+    padding:10px;
+    color:#FFF;
+    background-color:#607d8b;
+    margin:0 20px 20px 0;
+}
+
+.feature .row {
+    margin-top:0;
+}
+
+.feature .wrapper {
+    padding-bottom:10px;
 }

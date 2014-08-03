@@ -1,4 +1,19 @@
-<?php
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>CodeNext - Figure out what to learn</title>
+    </head>
+	<body>
+        <div id="learn">
+            <div id="header">
+                <h1>
+                    <a href="http://www.pahgawks.com/yc"><img src="logo.png" /></a>
+                    <a href="http://www.pahgawks.com/yc">CodeNext</a>
+                </h1>
+            </div>
+            <div class="wrapper">
+        <?php
 	require "login.php";
 	// var_dump($_POST);
 	
@@ -43,8 +58,8 @@
 	}
 
 	foreach ($courses as &$course) {
-		echo "---- COURSE: ";
-		echo $course["name"];
+		/*echo "---- COURSE: ";
+		echo $course["name"];*/
 
 		$prereqs = $course["prereqs"];
 		if ($prereqs = "" || $prereqs = " ")
@@ -85,9 +100,9 @@
 			}
 		}
 		$difficulty_score *= 5;
-		echo " difficulty score: ";
+		/*echo " difficulty score: ";
 		echo $difficulty_score;
-		echo "/50. ";
+		echo "/50. ";*/
 
 		// PREREQUISITE SKILL MATCHING
 		$prereq_score = 0;
@@ -105,14 +120,14 @@
 			$prereq_score = ($prereq_score / (3 * count($prereqs))) * 50;
 		else 
 			$prereq_score = 50;
-		echo " prereq match score: ";
+		/*echo " prereq match score: ";
 		echo $prereq_score;
-		echo "/50. ";
+		echo "/50. ";*/
 
 		$final_score = ($difficulty_score + $prereq_score)  * ($course["usefulness"] / 10);
-		echo "Final score: ";
+		/*echo "Final score: ";
 		echo $final_score;
-		echo "/100. ";
+		echo "/100. ";*/
 
 		$course["score"] = $final_score;
 	}
@@ -130,22 +145,58 @@
 	// SELECT RESULT:
 	$winner = $courses[0];
 	if($winner["score"] == 0)
-		echo "Sorry, no courses found that match your goals and skills. Try another combination or come back later and try again!";
+		echo "<div class='message'><h2>Sorry, no courses found that match your goals and skills.</h2><h3>Try another combination or come back later and try again!</h3></div>";
 	else {
-		echo "DA WINNER IS: ";
-		echo $winner["name"];
-		echo " ";
-		echo $winner["url"];
-		echo "users' comments: ";
+		echo "<div class='feature'>";
+        echo "<div class='half'>";
+        echo "<div class='wrapper'>";
+		echo "<h2><a href='" . $winner["url"] . "' target='_blank'>" . $winner["name"] . "</a></h2>";
+		echo "<h3>Prerequisites</h3>";
+        echo "<ul>";
+        foreach (explode(",", $winner["prereqs"]) as $prereq) {
+			if (strlen(trim($prereq))>0) echo "<li>" . str_replace("_", " ", $prereq) . "</li>";
+		}
+        echo "</ul>";
+        echo "<h3>What you'll learn</h3>";
+        echo "<ul>";
+        foreach (explode(",", $winner["subjects"]) as $subject) {
+			if (strlen(trim($subject))>0) echo "<li>" . str_replace("_", " ", $subject) . "</li>";
+		}
+        echo "</ul>";
+        echo "</div>";
+        echo "</div>";
+        echo "<div class='half'>";
+        echo "<div class='wrapper'>";
+		echo "<h3>User comments</h3>";
 		$STH=$DBH->prepare("SELECT * FROM reviews WHERE course = :id");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":id" => $winner["id"]));
 		$result = $STH->fetchAll();
-		foreach ($result as $review) {
-			echo $review["comments"];
-			echo "---";
-		}
-	}
+        if (count($result)>0) {
+            foreach ($result as $review) {
+                if (strlen(trim($review["comments"]))>0) {
+                    echo "<div class='comment'>";
+                    echo $review["comments"];
+                    echo "<div class='triangle'></div></div>";
+                }
+            }
+        } else {
+            echo "<p>There are no comments yet. You can be the first!</p>";
+        }
+        echo "</div>";
+        echo "</div>";
+        echo "<div class='row'>";
+        echo "<a href='" . $winner["url"] . "' target='_blank'>" . "Take this course</a>";
+        echo "<a class='secondary'>No thanks, show me another</a>";
+        echo "</div>";
+        echo "</div>";
+    }
+
 
 
 ?>
+                
+            </div>
+        </div>
+    </body>
+</html>
