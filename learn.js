@@ -3,9 +3,11 @@ var Filter = (function() {
     
     f.filterTags = function(input, results, tags) {
         var value = input.value.replace(" ", "_").toLowerCase();
+        var num_shown = 0;
         for (var i=0; i<tags.length; i++) {
-            if (value.length==0 || tags[i].getElementsByTagName("input")[0].checked || tags[i].id.toLowerCase().indexOf(value)==0) {
+            if ((value.length==0 || tags[i].getElementsByTagName("input")[0].checked || tags[i].id.toLowerCase().indexOf(value)==0) && num_shown < 10) {
                 tags[i].classList.remove("closed");
+                num_shown++;
             } else {
                 tags[i].classList.add("closed");
             }

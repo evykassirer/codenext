@@ -109,13 +109,15 @@
 
 require "login.php";
 
-$STH=$DBH->prepare("SELECT name FROM tags");
+$STH=$DBH->prepare("SELECT name FROM tags ORDER BY occurances DESC");
 $STH->setFetchMode(PDO::FETCH_ASSOC);
 $STH->execute();
 $result = $STH->fetchAll();
 array_unshift($result, array("name" => "Something_new"));
 for ($i=0; $i<count($result); $i++) {
-    echo "<div class='tag' id='" . $result[$i]["name"] . "'>";
+    echo "<div class='tag";
+    if ($i > 10) echo " closed";
+    echo "' id='" . $result[$i]["name"] . "'>";
     echo "<input type='checkbox' name='" . $result[$i]["name"] . "' id='" . $result[$i]["name"] . "box" . "'" . ($i==0?" checked":"") . " />";
     echo "<label for='" . $result[$i]["name"]  . "box" . "' class='title'>" . str_replace("_", " ", $result[$i]["name"]) . "</label>";
     echo "</div>";
