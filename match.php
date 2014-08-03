@@ -62,11 +62,11 @@
 		echo $course["name"];*/
 
 		$prereqs = $course["prereqs"];
-		if ($prereqs = "" || $prereqs = " ")
+		if ($prereqs == "")
 			$prereqs = array();
 		else 
 			$prereqs = explode(",", $prereqs);
-		
+
 		// DIFFICULTY ****************
 		$difficulty_score = 0;
 		foreach ($beg_skills as $skill){
@@ -99,13 +99,14 @@
 				break;
 			}
 		}
-		$difficulty_score *= 5;
+		$difficulty_score *= 3;
 		/*echo " difficulty score: ";
 		echo $difficulty_score;
-		echo "/50. ";*/
+		echo "/30. ";*/
 
 		// PREREQUISITE SKILL MATCHING
 		$prereq_score = 0;
+		$num_missing = 0;
 		foreach ($prereqs as $skill) {
 			if (in_array($beg_skills, $skill))
 				$prereq_score += 1;
@@ -113,14 +114,16 @@
 				$prereq_score += 2;
 			else if (in_array($adv_skills, $skill))
 				$prereq_score += 3;
+			else 
+				$num_missing++;
 		}
 		if(count($prereqs) > 0)
-			$prereq_score = ($prereq_score / (3 * count($prereqs))) * 50;
+			$prereq_score = ($prereq_score / (3 * count($prereqs))) * 70;
 		else 
-			$prereq_score = 50;
+			$prereq_score = 70  / pow(2, $num_missing);
 		/*echo " prereq match score: ";
 		echo $prereq_score;
-		echo "/50. ";*/
+		echo "/70. ";*/
 
 		$final_score = ($difficulty_score + $prereq_score)  * ($course["usefulness"] / 10);
 		/*echo "Final score: ";
