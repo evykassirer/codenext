@@ -44,6 +44,8 @@
 	$user_challenge = trim(stripslashes($_POST['challenge']));
 	//print_r($user_challenge);
 
+	$length = $_POST['length'];
+
 	if($goal_skill != "") {
 		// Find courses that teach the skill the user is looking for.
 		// There is gaurenteed ot be a match because we only let them choose skills that we support.
@@ -119,14 +121,25 @@
 				$num_missing++;
 		}
 		if(count($prereqs) > 0)
-			$prereq_score = ($prereq_score / (3 * count($prereqs))) * 70;
+			$prereq_score = ($prereq_score / (3 * count($prereqs))) * 40;
 		else 
 			$prereq_score = 70  / pow(2, $num_missing);
 		/*echo " prereq match score: ";
 		echo $prereq_score;
 		echo "/70. ";*/
 
-		$final_score = ($difficulty_score + $prereq_score)  * ($course["usefulness"] / 10);
+
+		// TIME FRAME MATCHING
+		$dict = array(
+			"hours" => 0,
+			"days" => 1,
+			"weeks" => 2,
+			"months" => 3
+		);
+		$diff = abs($dict[$length] - $dict[$course["length"]]); 
+		$time_score = ((3 - $diff) / 3) * 30;
+
+		$final_score = ($difficulty_score + $prereq_score + $time_score)  * ($course["usefulness"] / 10);
 		/*echo "Final score: ";
 		echo $final_score;
 		echo "/100. ";*/
