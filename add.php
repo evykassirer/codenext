@@ -22,7 +22,7 @@
 		$second = explode(",", $second);
 		foreach ($second as $elem) {
 			if (!in_array($elem, $first)) {
-				array_push($first, $elem);
+				$first[] =  $elem;
 			}
 		}
 		return implode(",", $first);
@@ -183,9 +183,5 @@
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":prereqs" => $new_prereqs, ":subjects" => $new_subjects, ":usefulness" => $new_usefulness, ":easiness" => $new_easiness, ":overall" => $new_overall, ":id" => $course_id));
 	}
-
-
-
-
 
 ?>
