@@ -148,9 +148,9 @@
 		echo "<div class='message'><h2>Sorry, no courses found that match your goals and skills.</h2><h3>Try another combination or come back later and try again!</h3></div>";
 	else {
 		echo "<div class='feature'>";
+        echo "<h2><a href='" . $winner["url"] . "' target='_blank'>" . $winner["name"] . "</a></h2>";
         echo "<div class='half'>";
         echo "<div class='wrapper'>";
-		echo "<h2><a href='" . $winner["url"] . "' target='_blank'>" . $winner["name"] . "</a></h2>";
 		echo "<h3>Prerequisites</h3>";
         echo "<ul>";
         foreach (explode(",", $winner["prereqs"]) as $prereq) {
