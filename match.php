@@ -131,6 +131,15 @@
 		echo $winner["name"];
 		echo " ";
 		echo $winner["url"];
+		echo "users' comments: ";
+		$STH=$DBH->prepare("SELECT * FROM reviews WHERE course = :id");
+		$STH->setFetchMode(PDO::FETCH_ASSOC);
+		$STH->execute(array(":id" => $winner["id"]));
+		$result = $STH->fetchAll();
+		foreach ($result as $review) {
+			echo $review["comments"];
+			echo "---";
+		}
 	}
 
 
