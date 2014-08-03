@@ -10,6 +10,12 @@ html,body { height: 100%; margin: 0px; padding: 0px; }
     font-family: 'Open Sans', sans-serif;
 }
 
+#learn {
+    min-height:100%;
+    background-color:#EEE;
+    font-family: 'Open Sans', sans-serif;
+}
+
 .wrapper {
     padding:40px;
 }
@@ -50,7 +56,7 @@ h2 {
     font-size: 40px;
     font-weight:lighter;
     color:#FFF;
-    margin: 20px 20px 10px 20px;
+    margin: 40px 20px 10px 20px;
 }
 
 h3 {
@@ -143,7 +149,7 @@ input[type="text"], textarea {
     line-height:40px;
 }
 
-input[type="text"] {
+form input[type="text"] {
     width:250px;
     float:right;
 }
@@ -177,4 +183,51 @@ input[type="range"] {
     display:inline-block;
     width:100px;
     text-align:center;
+}
+
+.filter input[type="text"] {
+    width:70%;
+    display:block;
+    font-size:20px;
+    line-height:30px;
+    margin:20px auto;
+    font-weight: lighter;
+    padding:20px;
+}
+
+.results {
+    text-align:center;
+}
+
+.tag, .prereq {
+    display:inline-block;
+    margin:20px;
+    padding:0;
+    background-color:#FFF;
+}
+
+.tag input, .prereq input {
+    display:none;
+}
+
+label.title {
+    display:block;
+    width:auto;
+    height:60px;
+    padding:20px 40px;
+    line-height:60px;
+    font-size:16px;
+    color:#000;
+    background-color:#f9bdbb;
+    transition: all 0.2s;
+}
+
+label.title:hover {
+    background-color:#FFF;
+    color:#000;
+}
+
+.tag input[type="checkbox"]:checked + label, .prereq input[type="checkbox"]:checked + label {
+    background-color:#e51c23;
+    color:#FFF;
 }
