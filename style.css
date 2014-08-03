@@ -173,6 +173,7 @@ input[type="range"] {
     z-index:9000;
     font-size:12px;
     line-height:16px;
+    cursor:pointer;
 }
 
 .slider {
@@ -199,14 +200,18 @@ input[type="range"] {
     text-align:center;
 }
 
-.tag, .prereq {
+.tag {
     display:inline-block;
     margin:20px;
     padding:0;
     background-color:#FFF;
 }
 
-.tag input, .prereq input {
+.tag.closed {
+    display:none;
+}
+
+.tag input {
     display:none;
 }
 
@@ -227,7 +232,7 @@ label.title:hover {
     color:#000;
 }
 
-.tag input[type="checkbox"]:checked + label, .prereq input[type="checkbox"]:checked + label {
+.tag input[type="checkbox"]:checked + label {
     background-color:#e51c23;
     color:#FFF;
 }

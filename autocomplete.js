@@ -6,7 +6,7 @@ var Autocomplete = (function() {
     calcLength.style.height = "auto";
     calcLength.style.visibility = "hidden";
     
-    a.getSuggestion = function(input, suggestion) {
+    a.getSuggestion = function(input, suggestion, prereqs) {
         var xmlhttp = new XMLHttpRequest();
         
         var value = input.value;
@@ -52,10 +52,21 @@ var Autocomplete = (function() {
         suggestion.style.display="none";
         input.parentElement.appendChild(suggestion);
         
+        suggestion.addEventListener("click", function() {
+            if (suggestion.style.display == "block" && suggestion.innerHTML.length>0) {
+                if (input.value.lastIndexOf(",") != -1) {
+                    input.value = input.value.substring(0, input.value.lastIndexOf(",")+1) + " " + suggestion.innerHTML + ", ";
+                } else {
+                    input.value = suggestion.innerHTML + ", ";
+                }
+            }
+            suggestion.style.display = "none";
+        });
+        
         input.addEventListener("keydown", function(evt) {
             clearInterval(timer);
             timer = setTimeout(function() {
-                a.getSuggestion(input, suggestion);
+                a.getSuggestion(input, suggestion, prereqs);
             }, 75);
             
             if (evt.keyCode == 13 || evt.keyCode == 9) {
