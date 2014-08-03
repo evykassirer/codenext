@@ -1,3 +1,21 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>CodeNext - Figure out what to learn</title>
+    </head>
+	<body>
+        <div id="main">
+            <div id="header">
+                <h1>
+                    <a href="http://www.pahgawks.com/yc"><img src="logo.png" /></a>
+                    <a href="http://www.pahgawks.com/yc">CodeNext</a>
+                </h1>
+            </div>
+            <div class="wrapper">
+        <div class='message'><h2>
+
 <?php
 	error_reporting(E_ALL);
 	require "login.php";
@@ -134,8 +152,11 @@
 		$new_course = True;
 	}
 
-	if ($new_course) {
-		echo "This new course has been submitted to our site - thanks!";
+	if ($new_course) { 
+	?>
+		This new course has been submitted to our site.
+
+	<?
 		$STH=$DBH->prepare("INSERT INTO courses VALUES ('', :name, :prereqs, :subjects, :url, :usefulness, :easiness, :overall)");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":name" => $name, ":prereqs" => $prereqs, ":subjects" => $prereqs, ":subjects" => $subjects, ":url" => $url, ":usefulness" => $usefulness, ":easiness" => $easiness, ":overall" => $overall));
@@ -157,8 +178,10 @@
 	$STH->execute(array(":user" => $user, ":course" => $course_id, ":usefulness" => $usefulness, ":easiness" => $easiness, ":comments" => $comments));
 
 	// If we added a new review to an existing course, update the course data.
-	if (!$new_course) {
-		echo "A previously submitted course was updated with your comments - thanks!";
+	if (!$new_course) { 
+	?>
+		A previously submitted course was updated with your comments.
+	<?
 		$STH=$DBH->prepare("SELECT * FROM reviews WHERE course = :id");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":id" => $course_id) );
@@ -185,3 +208,16 @@
 	}
 
 ?>
+
+					</h2>
+					<h3>Thanks!</h3>
+				</div>
+				<div class="row">
+                    <a href="index.html">
+                        <span class="type">Return</span>
+                    </a>
+                </div>                
+            </div>
+        </div>
+    </body>
+</html>

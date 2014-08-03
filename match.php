@@ -47,7 +47,10 @@
 		echo $course["name"];
 
 		$prereqs = $course["prereqs"];
-		$prereqs = explode(",", $prereqs);
+		if ($prereqs = "" || $prereqs = " ")
+			$prereqs = array();
+		else 
+			$prereqs = explode(",", $prereqs);
 		
 		// DIFFICULTY ****************
 		$difficulty_score = 0;
@@ -96,6 +99,8 @@
 			else if (in_array($adv_skills, $skill))
 				$prereq_score += 3;
 		}
+		echo count($prereqs);
+		echo " number of prereqs. ";
 		if(count($prereqs) > 0)
 			$prereq_score = ($prereq_score / (3 * count($prereqs))) * 50;
 		else 
