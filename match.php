@@ -208,6 +208,7 @@
                 echo "<li>None</li>";
             }
             echo "</ul>";
+            echo "<h3>This course will take a few " . $winner["length"] . ".</h3>";
             echo "</div>";
             echo "</div>";
             echo "<div class='half'>";
