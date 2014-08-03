@@ -79,7 +79,7 @@
                     }
                     
                     var challenge = document.createElement("input");
-                    challenge.name = "advanced[]";
+                    challenge.name = "challenge";
                     challenge.type="text";
                     challenge.value = document.getElementById("easiness").value;
                     f.appendChild(challenge);
