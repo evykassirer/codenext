@@ -16,8 +16,75 @@
                     });
                 }
                 
+                document.getElementById("next").addEventListener("click", function() {
+                    document.getElementById("subject").className="wrapper closed";
+                    document.getElementById("experiences").className="wrapper";
+                });
+                
+                document.getElementById("back").addEventListener("click", function() {
+                    document.getElementById("subject").className="wrapper";
+                    document.getElementById("experiences").className="wrapper closed";
+                });
+                
                 document.getElementById("find").addEventListener("click", function() {
-                    //var 
+                    var f = document.createElement("form");
+                    f.setAttribute('method',"post");
+                    f.setAttribute('action',"match.php");
+                    
+                    var goal = document.createElement("input");
+                    goal.name = "goal";
+                    goal.type="text";
+                    var subjects = document.getElementById("tags").getElementsByClassName("tag");
+                    for (var i=0; i<subjects.length; i++) {
+                        if (subjects[i].getElementsByTagName("input")[0].checked) {
+                            goal.value = subjects[i].id;
+                            break;
+                        }
+                    }
+                    f.appendChild(goal);
+                    
+                    var beginner = [];
+                    var intermediate = [];
+                    var advanced = [];
+                    var prereqs = document.getElementsByClassName("prereq");
+                    for (var i=0; i<prereqs.length; i++) {
+                        if (prereqs[i].getElementsByTagName("input")[0].checked) {
+                            var radios = prereqs[i].getElementsByClassName("experience")[0].getElementsByTagName("input");
+                            if (radios[0].checked) beginner.push(prereqs[i].id);
+                            if (radios[1].checked) intermediate.push(prereqs[i].id);
+                            if (radios[2].checked) advanced.push(prereqs[i].id);
+                        }
+                    }
+                    
+                    for (var i=0; i<beginner.length; i++) {
+                        var inp = document.createElement("input");
+                        inp.name = "beginner[]";
+                        inp.type="text";
+                        inp.value = beginner[i];
+                        f.appendChild(inp);
+                    }
+                    for (var i=0; i<intermediate.length; i++) {
+                        var inp = document.createElement("input");
+                        inp.name = "intermediate[]";
+                        inp.type="text";
+                        inp.value = intermediate[i];
+                        f.appendChild(inp);
+                    }
+                    for (var i=0; i<advanced.length; i++) {
+                        var inp = document.createElement("input");
+                        inp.name = "advanced[]";
+                        inp.type="text";
+                        inp.value = advanced[i];
+                        f.appendChild(inp);
+                    }
+                    
+                    var challenge = document.createElement("input");
+                    challenge.name = "advanced[]";
+                    challenge.type="text";
+                    challenge.value = document.getElementById("easiness").value;
+                    f.appendChild(challenge);
+                    
+                    f.submit();
                 });
             };
         </script>
@@ -32,7 +99,7 @@
             </div>
             
             <!-- subject -->
-            <div class="wrapper">
+            <div class="wrapper" id="subject">
                 <div class="filter">
                     <input type="text" id="search" placeholder="I want to learn..." />
                 </div>
@@ -52,14 +119,21 @@ for ($i=0; $i<count($result); $i++) {
     echo "<label for='" . $result[$i]["name"]  . "box" . "' class='title'>" . str_replace("_", " ", $result[$i]["name"]) . "</label>";
     echo "</div>";
 }
-
                     ?>
+                </div>
+                <div class="row slider">
+                    <label>Straightforward</label>
+                    <input type="range" id="easiness" min="0" max="10" value="5" step="0.5" />
+                    <label>Fun Challenge</label>
+                </div>
+                <div class="row">
+                    <a id="next">Next</a>
                 </div>
             </div>
             
             
-            <!-- knowledge -->
-            <div class="wrapper">
+            <!-- experiences -->
+            <div class="wrapper closed" id="experiences">
                 <div class="filter">
                     <input type="text" id="knowledge" placeholder="I'm familiar with..." />
                 </div>
@@ -101,10 +175,8 @@ for ($i=0; $i<count($result); $i++) {
 
                     ?>
                 </div>
-            </div>
-            
-            <div class="wrapper">
                 <div class="row">
+                    <a id="back">Back</a>
                     <a id="find">Find a course</a>
                 </div>
             </div>

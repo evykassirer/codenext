@@ -14,10 +14,19 @@ html,body { height: 100%; margin: 0px; padding: 0px; }
     min-height:100%;
     background-color:#EEE;
     font-family: 'Open Sans', sans-serif;
+    position:relative;
 }
 
 .wrapper {
     padding:40px;
+    max-height:2000px;
+    overflow:hidden;
+    transition:all 0.3s;
+}
+
+.wrapper.closed {
+    padding: 0 40px;
+    max-height:0;
 }
 
 #header {
@@ -32,7 +41,7 @@ h1 {
     font-size:35px;
     display:block;
     vertical-align:middle;
-    font-weight: normal;
+    font-weight: lighter;
     margin:0;
 }
 
@@ -275,4 +284,15 @@ label.title:hover {
 
 .experience label:hover {
     padding-right:5px;
+}
+
+#easiness {
+    width:350px;
+}
+
+#back {
+    background-color:#999;
+}
+#back:hover {
+    background-color:#FFF;
 }
