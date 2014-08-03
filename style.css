@@ -417,3 +417,13 @@ label.title:hover {
 #last h3, #last p {
     text-align:center;
 }
+
+.half form {
+    width:auto;
+    padding:10px;
+}
+
+.half form label {
+    font-size: 12px;
+    width:80px;
+}
