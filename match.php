@@ -239,8 +239,10 @@
             
             //review form
              ?>
-                
-                <form method="POST" action="review.php" autocomplete="off">
+                <div class="row">
+                    <a class="review">Write a review</a>
+                </div>
+                <form method="POST" action="review.php" autocomplete="off" class="hidden">
                     <div class="line slider"><label>Useless</label><input type="range" name="usefulness" min="0" max="10" value="5" step="0.5" /><label>Useful</label></div>
                     <div class="line slider"><label>Straightforward</label><input type="range" name="easiness" min="0" max="10" value="5" step="0.5" /><label>Fun Challenge</label></div>
                     <textarea name="comments" cols="45" rows="5" placeholder="Enter your comments on this resource here."></textarea>

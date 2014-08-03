@@ -79,6 +79,13 @@ h3 {
 .row {
     margin: 20px 0;
     text-align:center;
+    overflow:hidden;
+    max-height:2000px;
+}
+
+.row.hidden {
+    margin:0;
+    max-height:0;
 }
 
 .row a {
@@ -97,6 +104,13 @@ h3 {
 .row a.secondary {
     color:#000;
     background-color:#CCC;
+}
+
+.row a.review {
+    color:#000;
+    background-color:#CCC;
+    width:150px;
+    font-size:14px;
 }
 
 .row a span {
@@ -405,7 +419,7 @@ label.title:hover {
     margin-top:0;
 }
 
-.feature .row a:hover {
+.feature .row a:hover, .feature .row a.review:hover {
     background-color:#607d8b;
     color:#FFF;
 }
@@ -420,11 +434,21 @@ label.title:hover {
 
 .half form {
     width:auto;
-    padding:0;
-    background-color:transparent;
+    padding:10px;
+    background-color:#EEE;
+    overflow:hidden;
+    max-height: 2000px;
+    transition: all 0.4s;
+}
+
+.half form.hidden {
+    margin:0 auto;
+    padding: 0 10px;
+    max-height:0;
 }
 
 .half form label {
     font-size: 12px;
-    width:80px;
+    width:100px;
 }
+
