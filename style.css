@@ -158,7 +158,7 @@ form input[type="submit"]:hover {
     background-color:#f36c60;
 }
 
-input[type="text"], select, textarea {
+input[type="text"], input[type="password"], select, textarea {
     display:inline-block;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -169,7 +169,7 @@ input[type="text"], select, textarea {
     transition: all 0.2s;
 }
 
-input[type="text"]:hover, select:hover, textarea:hover {
+input[type="text"]:hover, input[type="password"]:hover, select:hover, textarea:hover {
     border: 1px solid #999;
 }
 
@@ -178,7 +178,7 @@ input[type="text"]:hover, select:hover, textarea:hover {
     line-height:40px;
 }
 
-form input[type="text"] {
+form input[type="text"], form input[type="password"] {
     width:350px;
     float:right;
 }

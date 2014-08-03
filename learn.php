@@ -125,7 +125,7 @@ for ($i=0; $i<count($result); $i++) {
                     ?>
                 </div>
                  <div class="row">
-                    <label>I want to learn this in:</label>
+                    <label>I want to finish this course in:</label>
                     <select name="length">
                         <option value="hours">hours</option>
                         <option value="days">days</option>
