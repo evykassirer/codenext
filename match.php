@@ -155,22 +155,32 @@
 		echo "<h3>Prerequisites</h3>";
         echo "<ul>";
         $prereqs = explode(",", $winner["prereqs"]);
+        $visible=0;
         if (count($prereqs)>0) {
             foreach ($prereqs as $prereq) {
-                if (strlen(trim($prereq))>0) echo "<li>" . str_replace("_", " ", $prereq) . "</li>";
+                if (strlen(trim($prereq))>0) {
+                    $visible++;
+                    echo "<li>" . str_replace("_", " ", $prereq) . "</li>";
+                }
             }
-        } else {
+        }
+        if ($visible==0) {
             echo "<li>None</li>";
         }
         echo "</ul>";
         echo "<h3>What you'll learn</h3>";
         echo "<ul>";
         $subjects = explode(",", $winner["subjects"]);
+        $visible=0;
         if (count($subjects)>0) {
             foreach ($subjects as $subject) {
-                if (strlen(trim($subject))>0) echo "<li>" . str_replace("_", " ", $subject) . "</li>";
+                if (strlen(trim($subject))>0) {
+                    $visible++;
+                    echo "<li>" . str_replace("_", " ", $subject) . "</li>";
+                }
             }
-        } else {
+        }
+        if ($visible==0) {
             echo "<li>None</li>";
         }
         echo "</ul>";
@@ -183,15 +193,18 @@
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":id" => $winner["id"]));
 		$result = $STH->fetchAll();
+        $visible=0;
         if (count($result)>0) {
             foreach ($result as $review) {
                 if (strlen(trim($review["comments"]))>0) {
+                    $visible++;
                     echo "<div class='comment'>";
                     echo $review["comments"];
                     echo "<div class='triangle'></div></div>";
                 }
             }
-        } else {
+        }
+        if ($visible==0) {
             echo "<p>There are no comments yet. You can be the first!</p>";
         }
         echo "</div>";
