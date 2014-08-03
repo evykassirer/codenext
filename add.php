@@ -3,12 +3,19 @@
 	
 	$name = trim(stripslashes($_POST['name']));
 
+	function FormatTagString($string) {
+		$tags = explode(", ", $string);
+		foreach ($tags as &$tag) {
+			$tag = preg_replace('/\s+/', '_', $tag);
+		}
+		return implode(",", $tags);
+	}
+
 	$prereqs = trim(stripslashes($_POST['prereqs']));
-	$prereqs = preg_replace('/\s+/', '', $prereqs);
+	$prereqs = FormatTagString($prereqs);
 
 	$subjects = trim(stripslashes($_POST['subjects']));
-	$subjects = preg_replace('/\s+/', '', $subjects);
-
+	$subjects = FormatTagString($subjects);
 
 	$url = trim(stripslashes($_POST['url']));
 	$parse = parse_url($url);
