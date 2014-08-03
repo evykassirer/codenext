@@ -273,6 +273,10 @@ label.title:hover {
     margin-top:-100px;
 }
 
+#Nothing_yet input[type="checkbox"]:checked + label {
+    margin-top:0;
+}
+
 .experience label {
     padding-right:0;
     transition: all 0.2s;
