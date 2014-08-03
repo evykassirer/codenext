@@ -10,6 +10,7 @@
 		foreach ($tags as &$tag) {
 			$tag = preg_replace('/\s+/', '_', $tag);
 			$tag = ucwords(strtolower($tag));
+			$tag = rtrim($tag, ",");
 		}
 		return implode(",", $tags);
 	}
@@ -63,7 +64,7 @@
 	}
 
 	if ($new_course) {
-		echo "new course submitted";
+		echo "This new course has been submitted to our site - thanks!";
 		$STH=$DBH->prepare("INSERT INTO courses VALUES ('', :name, :prereqs, :subjects, :url, :usefulness, :easiness, :overall)");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":name" => $name, ":prereqs" => $prereqs, ":subjects" => $prereqs, ":subjects" => $subjects, ":url" => $url, ":usefulness" => $usefulness, ":easiness" => $easiness, ":overall" => $overall));
@@ -83,7 +84,7 @@
 
 	// If we added a new review to an existing course, update the course data.
 	if (!$new_course) {
-		echo "submitted course updated";
+		echo "A previously submitted course was updated with your comments - thanks!";
 		$STH=$DBH->prepare("SELECT * FROM reviews WHERE course = :id");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":id" => $course_id) );
