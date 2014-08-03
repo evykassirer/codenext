@@ -6,6 +6,11 @@
 			CodeNext - Add Resource
 		</title>
         <script type="text/javascript" src="autocomplete.js"></script>
+        <script type="text/javascript">
+            window.onload = function() {
+                Autocomplete.addInput(document.getElementById("prereqs"), true);
+            };
+        </script>
 	</head>
 	<body>
         <div id="main">
@@ -18,7 +23,7 @@
                 <form method="POST" action="add.php">
                     <div class="line"><label>URL:</label><input type="text" name="url" /></div>
                     <div class="line"><label>Name:</label><input type="text" name="name" /></div>
-                    <div class="line"><label>Prerequisites:</label><input type="text" name="prereqs" /></div>
+                    <div class="line"><label>Prerequisites:</label><input type="text" name="prereqs" id="prereqs" /></div>
                     <div class="line"><label>You'll learn:</label><input type="text" name="subjects" /></div>
                     <div class="line slider"><label>Useless</label><input type="range" name="usefulness" min="0" max="10" value="5" step="0.5" /><label>Useful</label></div>
                     <div class="line slider"><label>Easy</label><input type="range" name="easiness" min="0" max="10" value="5" step="0.5" /><label>Hard</label></div>
