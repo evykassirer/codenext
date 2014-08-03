@@ -114,7 +114,7 @@ form {
     padding:60px;
     margin:40px auto;
     color:#000;
-    width:400px;
+    width:500px;
     border-radius:4px;
     line-height:30px;
 }
@@ -151,8 +151,12 @@ input[type="text"], textarea {
 }
 
 form input[type="text"] {
-    width:250px;
+    width:350px;
     float:right;
+}
+
+form textarea {
+    width:100%;
 }
 
 input[type="range"] {
@@ -183,7 +187,7 @@ input[type="range"] {
 
 .slider label {
     display:inline-block;
-    width:100px;
+    width:150px;
     text-align:center;
 }
 
