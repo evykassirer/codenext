@@ -60,6 +60,8 @@
 	$url = preg_replace('#^www\.(.+\.)#i', '$1', $parse['host']) . $parse['path'];
 	// print_r($url);
 
+	$length = $url = $_POST['length'];
+
 	$usefulness = trim(stripslashes($_POST['usefulness']));
 	$easiness = trim(stripslashes($_POST['easiness']));
 	$overall = $usefulness + $easiness;
@@ -153,13 +155,10 @@
 	}
 
 	if ($new_course) { 
-	?>
-		This new course has been submitted to our site.
-
-	<?
-		$STH=$DBH->prepare("INSERT INTO courses VALUES ('', :name, :prereqs, :subjects, :url, :usefulness, :easiness, :overall)");
+		$STH=$DBH->prepare("INSERT INTO courses VALUES ('', :name, :prereqs, :subjects, :url, :usefulness, :easiness, :overall, :length)");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
-		$STH->execute(array(":name" => $name, ":prereqs" => $prereqs, ":subjects" => $prereqs, ":subjects" => $subjects, ":url" => $url, ":usefulness" => $usefulness, ":easiness" => $easiness, ":overall" => $overall));
+		$STH->execute(array(":name" => $name, ":prereqs" => $prereqs, ":subjects" => $prereqs, ":subjects" => $subjects, ":url" => $url, ":usefulness" => $usefulness, ":easiness" => $easiness, ":overall" => $overall, ":length" => $length));
+	    ?> This new course has been submitted to our site. <?
 	}
 
 	// We always add a new review. 
@@ -179,9 +178,6 @@
 
 	// If we added a new review to an existing course, update the course data.
 	if (!$new_course) { 
-	?>
-		A previously submitted course was updated with your comments.
-	<?
 		$STH=$DBH->prepare("SELECT * FROM reviews WHERE course = :id");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":id" => $course_id) );
@@ -205,6 +201,7 @@
 		$STH=$DBH->prepare("UPDATE courses SET prereqs=:prereqs, subjects=:subjects, usefulness=:usefulness, easiness=:easiness, overall=:overall WHERE id=:id");
 		$STH->setFetchMode(PDO::FETCH_ASSOC);
 		$STH->execute(array(":prereqs" => $new_prereqs, ":subjects" => $new_subjects, ":usefulness" => $new_usefulness, ":easiness" => $new_easiness, ":overall" => $new_overall, ":id" => $course_id));
+		?>	A previously submitted course was updated with your comments. <?
 	}
 
 ?>
