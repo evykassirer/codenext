@@ -171,11 +171,11 @@
         $result=0;
         foreach ($courses as $winner) {
             $result++;
-            $winner["url"] = "http://" . $winner["url"];
+            $winner["url"] = "http://" . htmlspecialchars($winner["url"]);
             echo "<div class='feature" . ($result>1?" hidden":"") . "'>";
-            echo "<h2><a href='" . $winner["url"] . "' target='_blank'>" . $winner["name"] . "</a></h2>";
+            echo "<h2><a href='" . htmlspecialchars($winner["url"]) . "' target='_blank'>" . htmlspecialchars($winner["name"]) . "</a></h2>";
             echo "<div class='row'>";
-            echo "<a href='" . $winner["url"] . "' target='_blank'>" . "Take this course</a>";
+            echo "<a href='" . htmlspecialchars($winner["url"]) . "' target='_blank'>" . "Take this course</a>";
             echo "<a class='secondary'>No thanks, show me another</a>";
             echo "</div>";
             echo "<div class='half'>";
@@ -188,7 +188,7 @@
                 foreach ($prereqs as $prereq) {
                     if (strlen(trim($prereq))>0) {
                         $visible++;
-                        echo "<li>" . str_replace("_", " ", $prereq) . "</li>";
+                        echo "<li>" . htmlspecialchars(str_replace("_", " ", $prereq)) . "</li>";
                     }
                 }
             }
@@ -204,7 +204,7 @@
                 foreach ($subjects as $subject) {
                     if (strlen(trim($subject))>0) {
                         $visible++;
-                        echo "<li>" . str_replace("_", " ", $subject) . "</li>";
+                        echo "<li>" . htmlspecialchars(str_replace("_", " ", $subject)) . "</li>";
                     }
                 }
             }
@@ -212,7 +212,7 @@
                 echo "<li>None</li>";
             }
             echo "</ul>";
-            echo "<h3>This course will take a few " . $winner["length"] . ".</h3>";
+            echo "<h3>This course will take a few " . htmlspecialchars($winner["length"]) . ".</h3>";
             echo "</div>";
             echo "</div>";
             echo "<div class='half'>";
@@ -228,7 +228,7 @@
                     if (strlen(trim($review["comments"]))>0) {
                         $visible++;
                         echo "<div class='comment'>";
-                        echo $review["comments"];
+                        echo htmlspecialchars($review["comments"]);
                         echo "<div class='triangle'></div></div>";
                     }
                 }
@@ -246,7 +246,7 @@
                     <div class="line slider"><label>Useless</label><input type="range" name="usefulness" min="0" max="10" value="5" step="0.5" /><label>Useful</label></div>
                     <div class="line slider"><label>Straightforward</label><input type="range" name="easiness" min="0" max="10" value="5" step="0.5" /><label>Fun Challenge</label></div>
                     <textarea name="comments" cols="45" rows="5" placeholder="Enter your comments on this resource here."></textarea>
-                    <input type="hidden" name="course" value="<?php echo $winner["id"]; ?>" />
+                    <input type="hidden" name="course" value="<?php echo htmlspecialchars($winner["id"]); ?>" />
                     <input type="Submit" value="Add review" />
                 </form>
                 
